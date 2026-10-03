@@ -21,217 +21,140 @@ html{scroll-behavior:smooth}
 body{
   margin:0;
   font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
-  background:
-    radial-gradient(circle at 50% -10%,rgba(52,98,135,.22),transparent 34rem),
-    var(--bg);
+  background:radial-gradient(circle at 50% -10%,rgba(52,98,135,.22),transparent 34rem),var(--bg);
   color:var(--text);
 }
-header{
-  padding:clamp(34px,7vw,78px) 20px 30px;
-  text-align:center;
-}
-.kicker{
-  letter-spacing:.18em;
-  text-transform:uppercase;
-  color:#9fb5c5;
-  font-size:.74rem;
-  font-weight:700;
-}
-h1{
-  margin:.4rem auto .7rem;
-  max-width:900px;
-  font-size:clamp(2.2rem,6vw,5.1rem);
-  line-height:.94;
-  letter-spacing:-.045em;
-}
-.lede{
-  margin:0 auto;
-  max-width:720px;
-  color:var(--muted);
-  font-size:clamp(1rem,2vw,1.18rem);
-  line-height:1.65;
-}
+body.modal-open{overflow:hidden}
+header{padding:clamp(34px,7vw,78px) 20px 30px;text-align:center}
+.kicker{letter-spacing:.18em;text-transform:uppercase;color:#9fb5c5;font-size:.74rem;font-weight:700}
+h1{margin:.4rem auto .7rem;max-width:900px;font-size:clamp(2.2rem,6vw,5.1rem);line-height:.94;letter-spacing:-.045em}
+.lede{margin:0 auto;max-width:760px;color:var(--muted);font-size:clamp(1rem,2vw,1.18rem);line-height:1.65}
 .toolbar-wrap{
-  position:sticky;
-  top:0;
-  z-index:20;
-  padding:12px 14px;
+  position:sticky;top:0;z-index:20;padding:12px 14px;
   backdrop-filter:blur(16px);
   background:linear-gradient(to bottom,rgba(8,16,24,.9),rgba(8,16,24,.74));
-  border-top:1px solid var(--line);
-  border-bottom:1px solid var(--line);
+  border-top:1px solid var(--line);border-bottom:1px solid var(--line)
 }
-.toolbar{
-  max-width:1500px;
-  margin:auto;
-  display:flex;
-  flex-wrap:wrap;
-  gap:9px;
-  align-items:center;
-  justify-content:center;
+.toolbar{max-width:1500px;margin:auto;display:flex;flex-wrap:wrap;gap:9px;align-items:center;justify-content:center}
+button,.chip,.action-link{
+  border:1px solid var(--line);background:#101b25;color:var(--text);
+  border-radius:999px;padding:9px 14px;font-weight:700;cursor:pointer;
+  font:inherit;text-decoration:none
 }
-button,.chip{
-  border:1px solid var(--line);
-  background:#101b25;
-  color:var(--text);
-  border-radius:999px;
-  padding:9px 14px;
-  font-weight:700;
-  cursor:pointer;
-}
-button:hover,.chip:hover,.chip.active{background:#213448}
-.toolbar .separator{
-  width:1px;height:24px;background:var(--line);margin:0 3px;
-}
-main{
-  max-width:1500px;
-  margin:0 auto;
-  padding:28px 16px 80px;
-}
-.gallery{
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:22px;
-}
+button:hover,.chip:hover,.chip.active,.action-link:hover{background:#213448}
+.toolbar .separator{width:1px;height:24px;background:var(--line);margin:0 3px}
+main{max-width:1500px;margin:0 auto;padding:28px 16px 80px}
+.gallery{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
 .card{
   background:linear-gradient(180deg,#111c27,#0d1720);
-  border:1px solid var(--line);
-  border-radius:20px;
-  overflow:hidden;
-  box-shadow:var(--shadow);
+  border:1px solid var(--line);border-radius:20px;overflow:hidden;box-shadow:var(--shadow)
 }
 .card.hidden{display:none}
-.card-head{
-  display:flex;
-  align-items:flex-start;
-  justify-content:space-between;
-  gap:18px;
-  padding:15px 17px 14px;
-}
-.card h2{
-  font-size:1rem;
-  margin:0 0 4px;
-  letter-spacing:-.01em;
-}
-.meta{
-  font-size:.78rem;
-  color:var(--muted);
-  overflow-wrap:anywhere;
-}
-.badge{
-  flex:0 0 auto;
-  color:#c7d5df;
-  font-size:.72rem;
-  border:1px solid var(--line);
-  border-radius:999px;
-  padding:5px 8px;
-}
+.card-head{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:15px 17px 14px}
+.card h2{font-size:1rem;margin:0 0 4px;letter-spacing:-.01em}
+.meta{font-size:.78rem;color:var(--muted);overflow-wrap:anywhere}
+.badge{flex:0 0 auto;color:#c7d5df;font-size:.72rem;border:1px solid var(--line);border-radius:999px;padding:5px 8px}
 .compare{
   --pos:50%;
-  position:relative;
-  overflow:hidden;
-  width:100%;
-  aspect-ratio:3/2;
-  background:#05090d;
-  touch-action:none;
-  cursor:ew-resize;
-  outline:none;
+  position:relative;overflow:hidden;width:100%;aspect-ratio:3/2;background:#05090d;
+  cursor:zoom-in;outline:none
 }
 .compare img{
-  position:absolute;
-  inset:0;
-  width:100%;
-  height:100%;
-  object-fit:cover;
-  user-select:none;
-  -webkit-user-drag:none;
-  pointer-events:none;
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  user-select:none;-webkit-user-drag:none;pointer-events:none
 }
-.compare .edited{
-  clip-path:inset(0 calc(100% - var(--pos)) 0 0);
-}
+.compare .edited{clip-path:inset(0 0 0 var(--pos))}
 .divider{
-  position:absolute;
-  top:0;bottom:0;
-  left:var(--pos);
-  width:2px;
-  background:white;
-  transform:translateX(-1px);
-  box-shadow:0 0 0 1px rgba(0,0,0,.22);
+  position:absolute;top:0;bottom:0;left:var(--pos);width:2px;background:white;
+  transform:translateX(-1px);box-shadow:0 0 0 1px rgba(0,0,0,.22);pointer-events:none
 }
 .handle{
-  position:absolute;
-  left:var(--pos);
-  top:50%;
-  width:48px;height:48px;
-  transform:translate(-50%,-50%);
-  border-radius:50%;
-  display:grid;
-  place-items:center;
-  color:#07111a;
-  background:#fff;
-  box-shadow:0 5px 18px rgba(0,0,0,.34);
-  font-size:1.12rem;
-  font-weight:900;
+  position:absolute;left:var(--pos);top:50%;width:50px;height:50px;
+  transform:translate(-50%,-50%);border-radius:50%;display:grid;place-items:center;
+  color:#07111a;background:#fff;box-shadow:0 5px 18px rgba(0,0,0,.34);
+  font-size:1.12rem;font-weight:900;cursor:ew-resize;z-index:4;
+  touch-action:none
+}
+.handle::before{
+  content:"";position:absolute;width:78px;height:78px;border-radius:50%;
 }
 .label{
-  position:absolute;
-  top:13px;
-  padding:6px 9px;
-  border-radius:8px;
-  background:rgba(0,0,0,.56);
-  backdrop-filter:blur(8px);
-  color:#fff;
-  font-size:.69rem;
-  text-transform:uppercase;
-  font-weight:800;
-  letter-spacing:.08em;
-  pointer-events:none;
+  position:absolute;top:13px;padding:6px 9px;border-radius:8px;background:rgba(0,0,0,.56);
+  backdrop-filter:blur(8px);color:#fff;font-size:.69rem;text-transform:uppercase;
+  font-weight:800;letter-spacing:.08em;pointer-events:none
 }
-.label.before{left:13px}
-.label.after{right:13px}
+.label.before{left:13px}.label.after{right:13px}
 .card-foot{
-  padding:11px 14px 13px;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:10px;
-  color:var(--muted);
-  font-size:.78rem;
+  padding:11px 14px 13px;display:flex;flex-wrap:wrap;align-items:center;
+  justify-content:space-between;gap:10px;color:var(--muted);font-size:.78rem
 }
-.card-foot button{
-  padding:7px 10px;
-  font-size:.73rem;
+.card-actions{display:flex;flex-wrap:wrap;gap:7px}
+.card-actions button{padding:7px 10px;font-size:.73rem}
+.hint{max-width:330px;line-height:1.45}
+footer{border-top:1px solid var(--line);color:#8498a7;text-align:center;padding:28px 18px 44px;font-size:.8rem}
+
+/* Full-resolution lightbox */
+.lightbox{
+  position:fixed;inset:0;z-index:1000;background:rgba(3,7,11,.94);
+  display:grid;grid-template-rows:auto 1fr auto;
 }
-footer{
-  border-top:1px solid var(--line);
-  color:#8498a7;
-  text-align:center;
-  padding:28px 18px 44px;
-  font-size:.8rem;
+.lightbox[hidden]{display:none}
+.lightbox-top{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 14px;border-bottom:1px solid var(--line);
+  background:rgba(8,16,24,.9);backdrop-filter:blur(16px)
 }
+.lightbox-title{min-width:0}
+.lightbox-title strong{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lightbox-sub{font-size:.75rem;color:var(--muted);margin-top:2px}
+.lightbox-actions{display:flex;align-items:center;gap:7px;flex-wrap:wrap;justify-content:flex-end}
+.lightbox-actions button,.lightbox-actions a{padding:8px 11px;font-size:.76rem}
+.lightbox-actions .active{background:#edf4f8;color:#081018;border-color:#edf4f8}
+.lightbox-stage{
+  min-height:0;overflow:auto;display:grid;place-items:center;padding:18px;
+  cursor:zoom-in
+}
+.lightbox-stage.zoomed{display:block;cursor:zoom-out}
+#lightbox-image{
+  display:block;max-width:100%;max-height:calc(100vh - 150px);width:auto;height:auto;
+  box-shadow:0 20px 60px rgba(0,0,0,.55)
+}
+.lightbox-stage.zoomed #lightbox-image{max-width:none;max-height:none;margin:auto}
+.lightbox-bottom{
+  padding:10px 15px;border-top:1px solid var(--line);background:#081018;
+  color:var(--muted);font-size:.78rem;text-align:center
+}
+.close-btn{font-size:1.05rem;min-width:42px}
+
 @media (max-width:850px){
   .gallery{grid-template-columns:1fr}
-  .compare{aspect-ratio:3/2}
   .toolbar-wrap{position:static}
+  .lightbox-top{align-items:flex-start}
+  .lightbox-actions{justify-content:flex-start}
 }
-@media (prefers-reduced-motion:reduce){
-  html{scroll-behavior:auto}
+@media (max-width:620px){
+  .lightbox-top{display:block}
+  .lightbox-actions{margin-top:9px}
+  #lightbox-image{max-height:calc(100vh - 205px)}
 }
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
 <header>
   <div class="kicker">Aviation photo edit comparison</div>
   <h1>Airshow Before / After</h1>
-  <p class="lede">Drag the divider across any photograph to compare the camera original with the finished aviation edit. Tap “Toggle view” for a quick full-frame switch.</p>
+  <p class="lede">
+    Drag the center handle to compare the camera original with the finished aviation edit.
+    Click either side of a comparison to open that version at full resolution.
+  </p>
 </header>
 
 <div class="toolbar-wrap">
   <div class="toolbar">
-    <button type="button" data-global="0">All original</button>
+    <button type="button" data-global="100">All original</button>
     <button type="button" data-global="50">50 / 50</button>
-    <button type="button" data-global="100">All edited</button>
+    <button type="button" data-global="0">All edited</button>
     <div class="separator"></div>
     <button class="chip active" data-filter="All">All</button>
 <button class="chip" data-filter="Thunderbirds">Thunderbirds</button>
@@ -245,7 +168,14 @@ footer{
 <main>
   <section class="gallery">
     
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Formation overhead"
+  data-file="IMG_6364.JPG"
+  data-full-original="assets/fullres/original/01.jpg"
+  data-full-edited="assets/fullres/edited/01.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1720×1147">
   <div class="card-head">
     <div>
       <h2>Formation overhead</h2>
@@ -253,21 +183,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/01.jpg" alt="Original photograph: Formation overhead">
     <img class="edited" src="assets/edited/01.jpg" alt="Edited photograph: Formation overhead">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Smoke-column formation"
+  data-file="IMG_6367.JPG"
+  data-full-original="assets/fullres/original/02.jpg"
+  data-full-edited="assets/fullres/edited/02.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1520×1160">
   <div class="card-head">
     <div>
       <h2>Smoke-column formation</h2>
@@ -275,21 +216,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/02.jpg" alt="Original photograph: Smoke-column formation">
     <img class="edited" src="assets/edited/02.jpg" alt="Edited photograph: Smoke-column formation">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Break maneuver"
+  data-file="IMG_6376.JPG"
+  data-full-original="assets/fullres/original/03.jpg"
+  data-full-edited="assets/fullres/edited/03.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1620×1215">
   <div class="card-head">
     <div>
       <h2>Break maneuver</h2>
@@ -297,21 +249,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/03.jpg" alt="Original photograph: Break maneuver">
     <img class="edited" src="assets/edited/03.jpg" alt="Edited photograph: Break maneuver">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Helicopters">
+<article class="card"
+  data-category="Helicopters"
+  data-title="Maverick on the pad"
+  data-file="IMG_6377.JPG"
+  data-full-original="assets/fullres/original/04.jpg"
+  data-full-edited="assets/fullres/edited/04.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Maverick on the pad</h2>
@@ -319,21 +282,32 @@ footer{
     </div>
     <div class="badge">Helicopters</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/04.jpg" alt="Original photograph: Maverick on the pad">
     <img class="edited" src="assets/edited/04.jpg" alt="Edited photograph: Maverick on the pad">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Helicopters">
+<article class="card"
+  data-category="Helicopters"
+  data-title="Maverick silver helicopter"
+  data-file="IMG_6378.JPG"
+  data-full-original="assets/fullres/original/05.jpg"
+  data-full-edited="assets/fullres/edited/05.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1820×1213">
   <div class="card-head">
     <div>
       <h2>Maverick silver helicopter</h2>
@@ -341,21 +315,32 @@ footer{
     </div>
     <div class="badge">Helicopters</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/05.jpg" alt="Original photograph: Maverick silver helicopter">
     <img class="edited" src="assets/edited/05.jpg" alt="Edited photograph: Maverick silver helicopter">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Other aircraft">
+<article class="card"
+  data-category="Other aircraft"
+  data-title="Tanker pass"
+  data-file="IMG_6385.JPG"
+  data-full-original="assets/fullres/original/06.jpg"
+  data-full-edited="assets/fullres/edited/06.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1900×1267">
   <div class="card-head">
     <div>
       <h2>Tanker pass</h2>
@@ -363,21 +348,32 @@ footer{
     </div>
     <div class="badge">Other aircraft</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/06.jpg" alt="Original photograph: Tanker pass">
     <img class="edited" src="assets/edited/06.jpg" alt="Edited photograph: Tanker pass">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Other aircraft">
+<article class="card"
+  data-category="Other aircraft"
+  data-title="Two-aircraft pass"
+  data-file="IMG_6386.JPG"
+  data-full-original="assets/fullres/original/07.jpg"
+  data-full-edited="assets/fullres/edited/07.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1760×1173">
   <div class="card-head">
     <div>
       <h2>Two-aircraft pass</h2>
@@ -385,21 +381,32 @@ footer{
     </div>
     <div class="badge">Other aircraft</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/07.jpg" alt="Original photograph: Two-aircraft pass">
     <img class="edited" src="assets/edited/07.jpg" alt="Edited photograph: Two-aircraft pass">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Other aircraft">
+<article class="card"
+  data-category="Other aircraft"
+  data-title="Stealth fighter pass"
+  data-file="IMG_6423.JPG"
+  data-full-original="assets/fullres/original/08.jpg"
+  data-full-edited="assets/fullres/edited/08.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1380×776">
   <div class="card-head">
     <div>
       <h2>Stealth fighter pass</h2>
@@ -407,21 +414,32 @@ footer{
     </div>
     <div class="badge">Other aircraft</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/08.jpg" alt="Original photograph: Stealth fighter pass">
     <img class="edited" src="assets/edited/08.jpg" alt="Edited photograph: Stealth fighter pass">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Helicopters">
+<article class="card"
+  data-category="Helicopters"
+  data-title="Maverick over the resort"
+  data-file="IMG_6434.JPG"
+  data-full-original="assets/fullres/original/09.jpg"
+  data-full-edited="assets/fullres/edited/09.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Maverick over the resort</h2>
@@ -429,21 +447,32 @@ footer{
     </div>
     <div class="badge">Helicopters</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/09.jpg" alt="Original photograph: Maverick over the resort">
     <img class="edited" src="assets/edited/09.jpg" alt="Edited photograph: Maverick over the resort">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Helicopters">
+<article class="card"
+  data-category="Helicopters"
+  data-title="Maverick rooftop pass"
+  data-file="IMG_6435.JPG"
+  data-full-original="assets/fullres/original/10.jpg"
+  data-full-edited="assets/fullres/edited/10.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Maverick rooftop pass</h2>
@@ -451,21 +480,32 @@ footer{
     </div>
     <div class="badge">Helicopters</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/10.jpg" alt="Original photograph: Maverick rooftop pass">
     <img class="edited" src="assets/edited/10.jpg" alt="Edited photograph: Maverick rooftop pass">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Other aircraft">
+<article class="card"
+  data-category="Other aircraft"
+  data-title="Stealth jet and palms"
+  data-file="IMG_6437.JPG"
+  data-full-original="assets/fullres/original/11.jpg"
+  data-full-edited="assets/fullres/edited/11.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1250×1165">
   <div class="card-head">
     <div>
       <h2>Stealth jet and palms</h2>
@@ -473,21 +513,32 @@ footer{
     </div>
     <div class="badge">Other aircraft</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/11.jpg" alt="Original photograph: Stealth jet and palms">
     <img class="edited" src="assets/edited/11.jpg" alt="Edited photograph: Stealth jet and palms">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Other aircraft">
+<article class="card"
+  data-category="Other aircraft"
+  data-title="Stealth underside pass"
+  data-file="IMG_6445.JPG"
+  data-full-original="assets/fullres/original/12.jpg"
+  data-full-edited="assets/fullres/edited/12.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1590×1060">
   <div class="card-head">
     <div>
       <h2>Stealth underside pass</h2>
@@ -495,21 +546,32 @@ footer{
     </div>
     <div class="badge">Other aircraft</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/12.jpg" alt="Original photograph: Stealth underside pass">
     <img class="edited" src="assets/edited/12.jpg" alt="Edited photograph: Stealth underside pass">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Atmosphere">
+<article class="card"
+  data-category="Atmosphere"
+  data-title="International airshow flags"
+  data-file="IMG_6447.JPG"
+  data-full-original="assets/fullres/original/13.jpg"
+  data-full-edited="assets/fullres/edited/13.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="1965×1170">
   <div class="card-head">
     <div>
       <h2>International airshow flags</h2>
@@ -517,21 +579,32 @@ footer{
     </div>
     <div class="badge">Atmosphere</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/13.jpg" alt="Original photograph: International airshow flags">
     <img class="edited" src="assets/edited/13.jpg" alt="Edited photograph: International airshow flags">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Heritage">
+<article class="card"
+  data-category="Heritage"
+  data-title="Heritage flight"
+  data-file="IMG_6453.JPG"
+  data-full-original="assets/fullres/original/14.jpg"
+  data-full-edited="assets/fullres/edited/14.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Heritage flight</h2>
@@ -539,21 +612,32 @@ footer{
     </div>
     <div class="badge">Heritage</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/14.jpg" alt="Original photograph: Heritage flight">
     <img class="edited" src="assets/edited/14.jpg" alt="Edited photograph: Heritage flight">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Heritage">
+<article class="card"
+  data-category="Heritage"
+  data-title="Heritage crossover"
+  data-file="IMG_6455.JPG"
+  data-full-original="assets/fullres/original/15.jpg"
+  data-full-edited="assets/fullres/edited/15.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Heritage crossover</h2>
@@ -561,21 +645,32 @@ footer{
     </div>
     <div class="badge">Heritage</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/15.jpg" alt="Original photograph: Heritage crossover">
     <img class="edited" src="assets/edited/15.jpg" alt="Edited photograph: Heritage crossover">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Delta climb"
+  data-file="IMG_6464.JPG"
+  data-full-original="assets/fullres/original/16.jpg"
+  data-full-edited="assets/fullres/edited/16.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Delta climb</h2>
@@ -583,21 +678,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/16.jpg" alt="Original photograph: Delta climb">
     <img class="edited" src="assets/edited/16.jpg" alt="Edited photograph: Delta climb">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Symmetrical ascent"
+  data-file="IMG_6466.JPG"
+  data-full-original="assets/fullres/original/17.jpg"
+  data-full-edited="assets/fullres/edited/17.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Symmetrical ascent</h2>
@@ -605,21 +711,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/17.jpg" alt="Original photograph: Symmetrical ascent">
     <img class="edited" src="assets/edited/17.jpg" alt="Edited photograph: Symmetrical ascent">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Diamond over the show line"
+  data-file="IMG_6472.JPG"
+  data-full-original="assets/fullres/original/18.jpg"
+  data-full-edited="assets/fullres/edited/18.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Diamond over the show line</h2>
@@ -627,21 +744,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/18.jpg" alt="Original photograph: Diamond over the show line">
     <img class="edited" src="assets/edited/18.jpg" alt="Edited photograph: Diamond over the show line">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Vertical climb"
+  data-file="IMG_6474.JPG"
+  data-full-original="assets/fullres/original/19.jpg"
+  data-full-edited="assets/fullres/edited/19.png"
+  data-original-dims="1365×2048"
+  data-edited-dims="1086×1448">
   <div class="card-head">
     <div>
       <h2>Vertical climb</h2>
@@ -649,21 +777,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/19.jpg" alt="Original photograph: Vertical climb">
     <img class="edited" src="assets/edited/19.jpg" alt="Edited photograph: Vertical climb">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Close diamond formation"
+  data-file="IMG_6478.JPG"
+  data-full-original="assets/fullres/original/20.jpg"
+  data-full-edited="assets/fullres/edited/20.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1448×1086">
   <div class="card-head">
     <div>
       <h2>Close diamond formation</h2>
@@ -671,21 +810,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/20.jpg" alt="Original photograph: Close diamond formation">
     <img class="edited" src="assets/edited/20.jpg" alt="Edited photograph: Close diamond formation">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Stacked diamond pass"
+  data-file="IMG_6479(1).JPG"
+  data-full-original="assets/fullres/original/21.jpg"
+  data-full-edited="assets/fullres/edited/21.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1536×1024">
   <div class="card-head">
     <div>
       <h2>Stacked diamond pass</h2>
@@ -693,21 +843,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/21.jpg" alt="Original photograph: Stacked diamond pass">
     <img class="edited" src="assets/edited/21.jpg" alt="Edited photograph: Stacked diamond pass">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Side-on formation"
+  data-file="IMG_6480(1).JPG"
+  data-full-original="assets/fullres/original/22.jpg"
+  data-full-edited="assets/fullres/edited/22.jpg"
+  data-original-dims="2048×1365"
+  data-edited-dims="2048×1365">
   <div class="card-head">
     <div>
       <h2>Side-on formation</h2>
@@ -715,21 +876,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/22.jpg" alt="Original photograph: Side-on formation">
     <img class="edited" src="assets/edited/22.jpg" alt="Edited photograph: Side-on formation">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Four-ship diamond"
+  data-file="IMG_6490(1).JPG"
+  data-full-original="assets/fullres/original/23.jpg"
+  data-full-edited="assets/fullres/edited/23.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1536×1024">
   <div class="card-head">
     <div>
       <h2>Four-ship diamond</h2>
@@ -737,21 +909,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/23.jpg" alt="Original photograph: Four-ship diamond">
     <img class="edited" src="assets/edited/23.jpg" alt="Edited photograph: Four-ship diamond">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Six-ship smoke pass"
+  data-file="IMG_6500(1).JPG"
+  data-full-original="assets/fullres/original/24.jpg"
+  data-full-edited="assets/fullres/edited/24.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1536×1024">
   <div class="card-head">
     <div>
       <h2>Six-ship smoke pass</h2>
@@ -759,21 +942,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/24.jpg" alt="Original photograph: Six-ship smoke pass">
     <img class="edited" src="assets/edited/24.jpg" alt="Edited photograph: Six-ship smoke pass">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Thunderbirds">
+<article class="card"
+  data-category="Thunderbirds"
+  data-title="Tight six-ship formation"
+  data-file="IMG_6502(1).JPG"
+  data-full-original="assets/fullres/original/25.jpg"
+  data-full-edited="assets/fullres/edited/25.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1536×1024">
   <div class="card-head">
     <div>
       <h2>Tight six-ship formation</h2>
@@ -781,21 +975,32 @@ footer{
     </div>
     <div class="badge">Thunderbirds</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/25.jpg" alt="Original photograph: Tight six-ship formation">
     <img class="edited" src="assets/edited/25.jpg" alt="Edited photograph: Tight six-ship formation">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Helicopters">
+<article class="card"
+  data-category="Helicopters"
+  data-title="Low hover"
+  data-file="IMG_6505(1).JPG"
+  data-full-original="assets/fullres/original/26.jpg"
+  data-full-edited="assets/fullres/edited/26.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1536×1024">
   <div class="card-head">
     <div>
       <h2>Low hover</h2>
@@ -803,21 +1008,32 @@ footer{
     </div>
     <div class="badge">Helicopters</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/26.jpg" alt="Original photograph: Low hover">
     <img class="edited" src="assets/edited/26.jpg" alt="Edited photograph: Low hover">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Helicopters">
+<article class="card"
+  data-category="Helicopters"
+  data-title="Resort-side hover"
+  data-file="IMG_6509(1).JPG"
+  data-full-original="assets/fullres/original/27.jpg"
+  data-full-edited="assets/fullres/edited/27.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1536×1024">
   <div class="card-head">
     <div>
       <h2>Resort-side hover</h2>
@@ -825,21 +1041,32 @@ footer{
     </div>
     <div class="badge">Helicopters</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/27.jpg" alt="Original photograph: Resort-side hover">
     <img class="edited" src="assets/edited/27.jpg" alt="Edited photograph: Resort-side hover">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
 
-<article class="card" data-category="Helicopters">
+<article class="card"
+  data-category="Helicopters"
+  data-title="Maverick in clean sky"
+  data-file="IMG_6510(1).JPG"
+  data-full-original="assets/fullres/original/28.jpg"
+  data-full-edited="assets/fullres/edited/28.png"
+  data-original-dims="2048×1365"
+  data-edited-dims="1536×1024">
   <div class="card-head">
     <div>
       <h2>Maverick in clean sky</h2>
@@ -847,79 +1074,155 @@ footer{
     </div>
     <div class="badge">Helicopters</div>
   </div>
-  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+  <div class="compare" tabindex="0" role="slider" aria-valuemin="0" aria-valuemax="100"
+       aria-valuenow="50" aria-label="Original and edited comparison. Drag the center handle.">
     <img class="original" src="assets/original/28.jpg" alt="Original photograph: Maverick in clean sky">
     <img class="edited" src="assets/edited/28.jpg" alt="Edited photograph: Maverick in clean sky">
     <div class="divider"></div>
-    <div class="handle" aria-hidden="true">↔</div>
+    <div class="handle" title="Drag to compare" aria-hidden="true">↔</div>
     <div class="label before">Original</div>
     <div class="label after">Edit</div>
   </div>
   <div class="card-foot">
-    <span>Drag the divider · use ← → keys</span>
-    <button class="toggle" type="button">Toggle view</button>
+    <span class="hint">Drag the center handle. Click either side to view that version full size.</span>
+    <div class="card-actions">
+      <button class="open-original" type="button">Full original</button>
+      <button class="open-edited" type="button">Full edit</button>
+    </div>
   </div>
 </article>
   </section>
 </main>
 
-<footer>28 image comparisons · self-contained static gallery · no tracking, fonts, or external scripts</footer>
+<footer>
+  28 image comparisons · full-resolution originals and edits open on demand · no tracking or external scripts
+</footer>
+
+<div id="lightbox" class="lightbox" hidden role="dialog" aria-modal="true" aria-label="Full-resolution image viewer">
+  <div class="lightbox-top">
+    <div class="lightbox-title">
+      <strong id="lightbox-title-text"></strong>
+      <div id="lightbox-sub" class="lightbox-sub"></div>
+    </div>
+    <div class="lightbox-actions">
+      <button id="lb-original" type="button">Original</button>
+      <button id="lb-edited" type="button">Edit</button>
+      <a id="lb-open" class="action-link" href="#" target="_blank" rel="noopener">Open image</a>
+      <button id="lb-close" class="close-btn" type="button" aria-label="Close full-resolution viewer">✕</button>
+    </div>
+  </div>
+  <div class="lightbox-stage" title="Click image to toggle 1:1 zoom">
+    <img id="lightbox-image" src="" alt="">
+  </div>
+  <div class="lightbox-bottom">
+    Click the image to toggle 1:1 zoom · ← Original · → Edit · Esc closes
+  </div>
+</div>
+
 <script>
-const cards = [...document.querySelectorAll('.card')];
+const cards=[...document.querySelectorAll('.card')];
+const lightbox=document.getElementById('lightbox');
+const lbImage=document.getElementById('lightbox-image');
+const lbTitle=document.getElementById('lightbox-title-text');
+const lbSub=document.getElementById('lightbox-sub');
+const lbOriginal=document.getElementById('lb-original');
+const lbEdited=document.getElementById('lb-edited');
+const lbOpen=document.getElementById('lb-open');
+const lbStage=document.querySelector('.lightbox-stage');
+let activeCard=null;
+let activeVersion='edited';
 
-function setPos(comp, pct){
-  const p = Math.max(0, Math.min(100, pct));
-  comp.style.setProperty('--pos', p + '%');
-  comp.dataset.pos = p;
+function setPos(comp,pct){
+  const p=Math.max(0,Math.min(100,pct));
+  comp.style.setProperty('--pos',p+'%');
+  comp.dataset.pos=p;
+  comp.setAttribute('aria-valuenow',Math.round(p));
 }
-
-function pointerToPct(comp, ev){
-  const r = comp.getBoundingClientRect();
-  return ((ev.clientX - r.left) / r.width) * 100;
+function setLightboxVersion(version){
+  if(!activeCard) return;
+  activeVersion=version;
+  const isOriginal=version==='original';
+  const src=isOriginal ? activeCard.dataset.fullOriginal : activeCard.dataset.fullEdited;
+  const dims=isOriginal ? activeCard.dataset.originalDims : activeCard.dataset.editedDims;
+  lbImage.src=src;
+  lbImage.alt=(isOriginal?'Original full-resolution photograph: ':'Edited full-resolution photograph: ')+activeCard.dataset.title;
+  lbSub.textContent=(isOriginal?'Original':'Edit')+' · '+dims+' · '+activeCard.dataset.file;
+  lbOriginal.classList.toggle('active',isOriginal);
+  lbEdited.classList.toggle('active',!isOriginal);
+  lbOpen.href=src;
+  lbStage.classList.remove('zoomed');
+}
+function openLightbox(card,version){
+  activeCard=card;
+  lbTitle.textContent=card.dataset.title;
+  setLightboxVersion(version);
+  lightbox.hidden=false;
+  document.body.classList.add('modal-open');
+  document.getElementById('lb-close').focus();
+}
+function closeLightbox(){
+  lightbox.hidden=true;
+  document.body.classList.remove('modal-open');
+  lbImage.src='';
+  activeCard=null;
+}
+function sideAtPoint(comp,clientX){
+  const rect=comp.getBoundingClientRect();
+  const xPct=((clientX-rect.left)/rect.width)*100;
+  const divider=Number(comp.dataset.pos||50);
+  return xPct<divider ? 'original' : 'edited';
 }
 
 cards.forEach(card=>{
-  const comp = card.querySelector('.compare');
+  const comp=card.querySelector('.compare');
+  const handle=card.querySelector('.handle');
   setPos(comp,50);
 
-  const move = ev=>{
-    if(comp.dataset.dragging!=='1') return;
-    setPos(comp,pointerToPct(comp,ev));
-  };
+  let dragging=false;
+  let pointerId=null;
 
-  comp.addEventListener('pointerdown',ev=>{
-    comp.dataset.dragging='1';
-    comp.setPointerCapture(ev.pointerId);
-    setPos(comp,pointerToPct(comp,ev));
+  function dragMove(ev){
+    if(!dragging) return;
+    const r=comp.getBoundingClientRect();
+    setPos(comp,((ev.clientX-r.left)/r.width)*100);
+  }
+
+  handle.addEventListener('pointerdown',ev=>{
+    ev.preventDefault();
+    ev.stopPropagation();
+    dragging=true;
+    pointerId=ev.pointerId;
+    handle.setPointerCapture(pointerId);
   });
-  comp.addEventListener('pointermove',move);
-  comp.addEventListener('pointerup',ev=>{
-    comp.dataset.dragging='0';
-    try{comp.releasePointerCapture(ev.pointerId)}catch(e){}
+  handle.addEventListener('pointermove',dragMove);
+  handle.addEventListener('pointerup',ev=>{
+    dragging=false;
+    try{handle.releasePointerCapture(pointerId)}catch(e){}
+    pointerId=null;
   });
-  comp.addEventListener('pointercancel',()=>comp.dataset.dragging='0');
+  handle.addEventListener('pointercancel',()=>{dragging=false;pointerId=null});
+
+  comp.addEventListener('click',ev=>{
+    if(ev.target===handle) return;
+    openLightbox(card,sideAtPoint(comp,ev.clientX));
+  });
 
   comp.addEventListener('keydown',ev=>{
-    const cur = Number(comp.dataset.pos || 50);
-    if(ev.key==='ArrowLeft'){ev.preventDefault();setPos(comp,cur-5);}
-    if(ev.key==='ArrowRight'){ev.preventDefault();setPos(comp,cur+5);}
-    if(ev.key==='Home'){ev.preventDefault();setPos(comp,0);}
-    if(ev.key==='End'){ev.preventDefault();setPos(comp,100);}
-    if(ev.key==='Enter' || ev.key===' '){
-      ev.preventDefault();
-      setPos(comp,cur < 50 ? 100 : 0);
-    }
+    const cur=Number(comp.dataset.pos||50);
+    if(ev.key==='ArrowLeft'){ev.preventDefault();setPos(comp,cur-5)}
+    if(ev.key==='ArrowRight'){ev.preventDefault();setPos(comp,cur+5)}
+    if(ev.key==='Home'){ev.preventDefault();setPos(comp,0)}
+    if(ev.key==='End'){ev.preventDefault();setPos(comp,100)}
+    if(ev.key==='Enter'){ev.preventDefault();openLightbox(card,'edited')}
   });
 
-  card.querySelector('.toggle').addEventListener('click',()=>{
-    const cur = Number(comp.dataset.pos || 50);
-    setPos(comp,cur < 50 ? 100 : 0);
-  });
+  card.querySelector('.open-original').addEventListener('click',()=>openLightbox(card,'original'));
+  card.querySelector('.open-edited').addEventListener('click',()=>openLightbox(card,'edited'));
 });
 
 document.querySelectorAll('[data-global]').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    const pct = Number(btn.dataset.global);
+    const pct=Number(btn.dataset.global);
     cards.forEach(c=>setPos(c.querySelector('.compare'),pct));
   });
 });
@@ -930,9 +1233,25 @@ chips.forEach(chip=>chip.addEventListener('click',()=>{
   chip.classList.add('active');
   const filter=chip.dataset.filter;
   cards.forEach(card=>{
-    card.classList.toggle('hidden', filter!=='All' && card.dataset.category!==filter);
+    card.classList.toggle('hidden',filter!=='All'&&card.dataset.category!==filter);
   });
 }));
+
+document.getElementById('lb-close').addEventListener('click',closeLightbox);
+lbOriginal.addEventListener('click',()=>setLightboxVersion('original'));
+lbEdited.addEventListener('click',()=>setLightboxVersion('edited'));
+lbStage.addEventListener('click',ev=>{
+  if(ev.target===lbImage||ev.target===lbStage) lbStage.classList.toggle('zoomed');
+});
+lightbox.addEventListener('click',ev=>{
+  if(ev.target===lightbox) closeLightbox();
+});
+document.addEventListener('keydown',ev=>{
+  if(lightbox.hidden) return;
+  if(ev.key==='Escape') closeLightbox();
+  if(ev.key==='ArrowLeft') setLightboxVersion('original');
+  if(ev.key==='ArrowRight') setLightboxVersion('edited');
+});
 </script>
 </body>
 </html>
