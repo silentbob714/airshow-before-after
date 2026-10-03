@@ -1,0 +1,938 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#081018">
+<title>Airshow Before / After</title>
+<style>
+:root{
+  --bg:#081018;
+  --panel:#101a24;
+  --panel-2:#152331;
+  --text:#eef5fb;
+  --muted:#9eb0bf;
+  --line:rgba(255,255,255,.11);
+  --accent:#f3f6f9;
+  --shadow:0 18px 50px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  background:
+    radial-gradient(circle at 50% -10%,rgba(52,98,135,.22),transparent 34rem),
+    var(--bg);
+  color:var(--text);
+}
+header{
+  padding:clamp(34px,7vw,78px) 20px 30px;
+  text-align:center;
+}
+.kicker{
+  letter-spacing:.18em;
+  text-transform:uppercase;
+  color:#9fb5c5;
+  font-size:.74rem;
+  font-weight:700;
+}
+h1{
+  margin:.4rem auto .7rem;
+  max-width:900px;
+  font-size:clamp(2.2rem,6vw,5.1rem);
+  line-height:.94;
+  letter-spacing:-.045em;
+}
+.lede{
+  margin:0 auto;
+  max-width:720px;
+  color:var(--muted);
+  font-size:clamp(1rem,2vw,1.18rem);
+  line-height:1.65;
+}
+.toolbar-wrap{
+  position:sticky;
+  top:0;
+  z-index:20;
+  padding:12px 14px;
+  backdrop-filter:blur(16px);
+  background:linear-gradient(to bottom,rgba(8,16,24,.9),rgba(8,16,24,.74));
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.toolbar{
+  max-width:1500px;
+  margin:auto;
+  display:flex;
+  flex-wrap:wrap;
+  gap:9px;
+  align-items:center;
+  justify-content:center;
+}
+button,.chip{
+  border:1px solid var(--line);
+  background:#101b25;
+  color:var(--text);
+  border-radius:999px;
+  padding:9px 14px;
+  font-weight:700;
+  cursor:pointer;
+}
+button:hover,.chip:hover,.chip.active{background:#213448}
+.toolbar .separator{
+  width:1px;height:24px;background:var(--line);margin:0 3px;
+}
+main{
+  max-width:1500px;
+  margin:0 auto;
+  padding:28px 16px 80px;
+}
+.gallery{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:22px;
+}
+.card{
+  background:linear-gradient(180deg,#111c27,#0d1720);
+  border:1px solid var(--line);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+}
+.card.hidden{display:none}
+.card-head{
+  display:flex;
+  align-items:flex-start;
+  justify-content:space-between;
+  gap:18px;
+  padding:15px 17px 14px;
+}
+.card h2{
+  font-size:1rem;
+  margin:0 0 4px;
+  letter-spacing:-.01em;
+}
+.meta{
+  font-size:.78rem;
+  color:var(--muted);
+  overflow-wrap:anywhere;
+}
+.badge{
+  flex:0 0 auto;
+  color:#c7d5df;
+  font-size:.72rem;
+  border:1px solid var(--line);
+  border-radius:999px;
+  padding:5px 8px;
+}
+.compare{
+  --pos:50%;
+  position:relative;
+  overflow:hidden;
+  width:100%;
+  aspect-ratio:3/2;
+  background:#05090d;
+  touch-action:none;
+  cursor:ew-resize;
+  outline:none;
+}
+.compare img{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  user-select:none;
+  -webkit-user-drag:none;
+  pointer-events:none;
+}
+.compare .edited{
+  clip-path:inset(0 calc(100% - var(--pos)) 0 0);
+}
+.divider{
+  position:absolute;
+  top:0;bottom:0;
+  left:var(--pos);
+  width:2px;
+  background:white;
+  transform:translateX(-1px);
+  box-shadow:0 0 0 1px rgba(0,0,0,.22);
+}
+.handle{
+  position:absolute;
+  left:var(--pos);
+  top:50%;
+  width:48px;height:48px;
+  transform:translate(-50%,-50%);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  color:#07111a;
+  background:#fff;
+  box-shadow:0 5px 18px rgba(0,0,0,.34);
+  font-size:1.12rem;
+  font-weight:900;
+}
+.label{
+  position:absolute;
+  top:13px;
+  padding:6px 9px;
+  border-radius:8px;
+  background:rgba(0,0,0,.56);
+  backdrop-filter:blur(8px);
+  color:#fff;
+  font-size:.69rem;
+  text-transform:uppercase;
+  font-weight:800;
+  letter-spacing:.08em;
+  pointer-events:none;
+}
+.label.before{left:13px}
+.label.after{right:13px}
+.card-foot{
+  padding:11px 14px 13px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  color:var(--muted);
+  font-size:.78rem;
+}
+.card-foot button{
+  padding:7px 10px;
+  font-size:.73rem;
+}
+footer{
+  border-top:1px solid var(--line);
+  color:#8498a7;
+  text-align:center;
+  padding:28px 18px 44px;
+  font-size:.8rem;
+}
+@media (max-width:850px){
+  .gallery{grid-template-columns:1fr}
+  .compare{aspect-ratio:3/2}
+  .toolbar-wrap{position:static}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">Aviation photo edit comparison</div>
+  <h1>Airshow Before / After</h1>
+  <p class="lede">Drag the divider across any photograph to compare the camera original with the finished aviation edit. Tap “Toggle view” for a quick full-frame switch.</p>
+</header>
+
+<div class="toolbar-wrap">
+  <div class="toolbar">
+    <button type="button" data-global="0">All original</button>
+    <button type="button" data-global="50">50 / 50</button>
+    <button type="button" data-global="100">All edited</button>
+    <div class="separator"></div>
+    <button class="chip active" data-filter="All">All</button>
+<button class="chip" data-filter="Thunderbirds">Thunderbirds</button>
+<button class="chip" data-filter="Helicopters">Helicopters</button>
+<button class="chip" data-filter="Heritage">Heritage</button>
+<button class="chip" data-filter="Other aircraft">Other aircraft</button>
+<button class="chip" data-filter="Atmosphere">Atmosphere</button>
+  </div>
+</div>
+
+<main>
+  <section class="gallery">
+    
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Formation overhead</h2>
+      <div class="meta">IMG_6364.JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/01.jpg" alt="Original photograph: Formation overhead">
+    <img class="edited" src="assets/edited/01.jpg" alt="Edited photograph: Formation overhead">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Smoke-column formation</h2>
+      <div class="meta">IMG_6367.JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/02.jpg" alt="Original photograph: Smoke-column formation">
+    <img class="edited" src="assets/edited/02.jpg" alt="Edited photograph: Smoke-column formation">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Break maneuver</h2>
+      <div class="meta">IMG_6376.JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/03.jpg" alt="Original photograph: Break maneuver">
+    <img class="edited" src="assets/edited/03.jpg" alt="Edited photograph: Break maneuver">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Helicopters">
+  <div class="card-head">
+    <div>
+      <h2>Maverick on the pad</h2>
+      <div class="meta">IMG_6377.JPG</div>
+    </div>
+    <div class="badge">Helicopters</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/04.jpg" alt="Original photograph: Maverick on the pad">
+    <img class="edited" src="assets/edited/04.jpg" alt="Edited photograph: Maverick on the pad">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Helicopters">
+  <div class="card-head">
+    <div>
+      <h2>Maverick silver helicopter</h2>
+      <div class="meta">IMG_6378.JPG</div>
+    </div>
+    <div class="badge">Helicopters</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/05.jpg" alt="Original photograph: Maverick silver helicopter">
+    <img class="edited" src="assets/edited/05.jpg" alt="Edited photograph: Maverick silver helicopter">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Other aircraft">
+  <div class="card-head">
+    <div>
+      <h2>Tanker pass</h2>
+      <div class="meta">IMG_6385.JPG</div>
+    </div>
+    <div class="badge">Other aircraft</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/06.jpg" alt="Original photograph: Tanker pass">
+    <img class="edited" src="assets/edited/06.jpg" alt="Edited photograph: Tanker pass">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Other aircraft">
+  <div class="card-head">
+    <div>
+      <h2>Two-aircraft pass</h2>
+      <div class="meta">IMG_6386.JPG</div>
+    </div>
+    <div class="badge">Other aircraft</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/07.jpg" alt="Original photograph: Two-aircraft pass">
+    <img class="edited" src="assets/edited/07.jpg" alt="Edited photograph: Two-aircraft pass">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Other aircraft">
+  <div class="card-head">
+    <div>
+      <h2>Stealth fighter pass</h2>
+      <div class="meta">IMG_6423.JPG</div>
+    </div>
+    <div class="badge">Other aircraft</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/08.jpg" alt="Original photograph: Stealth fighter pass">
+    <img class="edited" src="assets/edited/08.jpg" alt="Edited photograph: Stealth fighter pass">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Helicopters">
+  <div class="card-head">
+    <div>
+      <h2>Maverick over the resort</h2>
+      <div class="meta">IMG_6434.JPG</div>
+    </div>
+    <div class="badge">Helicopters</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/09.jpg" alt="Original photograph: Maverick over the resort">
+    <img class="edited" src="assets/edited/09.jpg" alt="Edited photograph: Maverick over the resort">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Helicopters">
+  <div class="card-head">
+    <div>
+      <h2>Maverick rooftop pass</h2>
+      <div class="meta">IMG_6435.JPG</div>
+    </div>
+    <div class="badge">Helicopters</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/10.jpg" alt="Original photograph: Maverick rooftop pass">
+    <img class="edited" src="assets/edited/10.jpg" alt="Edited photograph: Maverick rooftop pass">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Other aircraft">
+  <div class="card-head">
+    <div>
+      <h2>Stealth jet and palms</h2>
+      <div class="meta">IMG_6437.JPG</div>
+    </div>
+    <div class="badge">Other aircraft</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/11.jpg" alt="Original photograph: Stealth jet and palms">
+    <img class="edited" src="assets/edited/11.jpg" alt="Edited photograph: Stealth jet and palms">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Other aircraft">
+  <div class="card-head">
+    <div>
+      <h2>Stealth underside pass</h2>
+      <div class="meta">IMG_6445.JPG</div>
+    </div>
+    <div class="badge">Other aircraft</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/12.jpg" alt="Original photograph: Stealth underside pass">
+    <img class="edited" src="assets/edited/12.jpg" alt="Edited photograph: Stealth underside pass">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Atmosphere">
+  <div class="card-head">
+    <div>
+      <h2>International airshow flags</h2>
+      <div class="meta">IMG_6447.JPG</div>
+    </div>
+    <div class="badge">Atmosphere</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/13.jpg" alt="Original photograph: International airshow flags">
+    <img class="edited" src="assets/edited/13.jpg" alt="Edited photograph: International airshow flags">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Heritage">
+  <div class="card-head">
+    <div>
+      <h2>Heritage flight</h2>
+      <div class="meta">IMG_6453.JPG</div>
+    </div>
+    <div class="badge">Heritage</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/14.jpg" alt="Original photograph: Heritage flight">
+    <img class="edited" src="assets/edited/14.jpg" alt="Edited photograph: Heritage flight">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Heritage">
+  <div class="card-head">
+    <div>
+      <h2>Heritage crossover</h2>
+      <div class="meta">IMG_6455.JPG</div>
+    </div>
+    <div class="badge">Heritage</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/15.jpg" alt="Original photograph: Heritage crossover">
+    <img class="edited" src="assets/edited/15.jpg" alt="Edited photograph: Heritage crossover">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Delta climb</h2>
+      <div class="meta">IMG_6464.JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/16.jpg" alt="Original photograph: Delta climb">
+    <img class="edited" src="assets/edited/16.jpg" alt="Edited photograph: Delta climb">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Symmetrical ascent</h2>
+      <div class="meta">IMG_6466.JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/17.jpg" alt="Original photograph: Symmetrical ascent">
+    <img class="edited" src="assets/edited/17.jpg" alt="Edited photograph: Symmetrical ascent">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Diamond over the show line</h2>
+      <div class="meta">IMG_6472.JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/18.jpg" alt="Original photograph: Diamond over the show line">
+    <img class="edited" src="assets/edited/18.jpg" alt="Edited photograph: Diamond over the show line">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Vertical climb</h2>
+      <div class="meta">IMG_6474.JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/19.jpg" alt="Original photograph: Vertical climb">
+    <img class="edited" src="assets/edited/19.jpg" alt="Edited photograph: Vertical climb">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Close diamond formation</h2>
+      <div class="meta">IMG_6478.JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/20.jpg" alt="Original photograph: Close diamond formation">
+    <img class="edited" src="assets/edited/20.jpg" alt="Edited photograph: Close diamond formation">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Stacked diamond pass</h2>
+      <div class="meta">IMG_6479(1).JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/21.jpg" alt="Original photograph: Stacked diamond pass">
+    <img class="edited" src="assets/edited/21.jpg" alt="Edited photograph: Stacked diamond pass">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Side-on formation</h2>
+      <div class="meta">IMG_6480(1).JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/22.jpg" alt="Original photograph: Side-on formation">
+    <img class="edited" src="assets/edited/22.jpg" alt="Edited photograph: Side-on formation">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Four-ship diamond</h2>
+      <div class="meta">IMG_6490(1).JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/23.jpg" alt="Original photograph: Four-ship diamond">
+    <img class="edited" src="assets/edited/23.jpg" alt="Edited photograph: Four-ship diamond">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Six-ship smoke pass</h2>
+      <div class="meta">IMG_6500(1).JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/24.jpg" alt="Original photograph: Six-ship smoke pass">
+    <img class="edited" src="assets/edited/24.jpg" alt="Edited photograph: Six-ship smoke pass">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Thunderbirds">
+  <div class="card-head">
+    <div>
+      <h2>Tight six-ship formation</h2>
+      <div class="meta">IMG_6502(1).JPG</div>
+    </div>
+    <div class="badge">Thunderbirds</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/25.jpg" alt="Original photograph: Tight six-ship formation">
+    <img class="edited" src="assets/edited/25.jpg" alt="Edited photograph: Tight six-ship formation">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Helicopters">
+  <div class="card-head">
+    <div>
+      <h2>Low hover</h2>
+      <div class="meta">IMG_6505(1).JPG</div>
+    </div>
+    <div class="badge">Helicopters</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/26.jpg" alt="Original photograph: Low hover">
+    <img class="edited" src="assets/edited/26.jpg" alt="Edited photograph: Low hover">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Helicopters">
+  <div class="card-head">
+    <div>
+      <h2>Resort-side hover</h2>
+      <div class="meta">IMG_6509(1).JPG</div>
+    </div>
+    <div class="badge">Helicopters</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/27.jpg" alt="Original photograph: Resort-side hover">
+    <img class="edited" src="assets/edited/27.jpg" alt="Edited photograph: Resort-side hover">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+
+<article class="card" data-category="Helicopters">
+  <div class="card-head">
+    <div>
+      <h2>Maverick in clean sky</h2>
+      <div class="meta">IMG_6510(1).JPG</div>
+    </div>
+    <div class="badge">Helicopters</div>
+  </div>
+  <div class="compare" tabindex="0" role="slider" aria-label="Before and after comparison">
+    <img class="original" src="assets/original/28.jpg" alt="Original photograph: Maverick in clean sky">
+    <img class="edited" src="assets/edited/28.jpg" alt="Edited photograph: Maverick in clean sky">
+    <div class="divider"></div>
+    <div class="handle" aria-hidden="true">↔</div>
+    <div class="label before">Original</div>
+    <div class="label after">Edit</div>
+  </div>
+  <div class="card-foot">
+    <span>Drag the divider · use ← → keys</span>
+    <button class="toggle" type="button">Toggle view</button>
+  </div>
+</article>
+  </section>
+</main>
+
+<footer>28 image comparisons · self-contained static gallery · no tracking, fonts, or external scripts</footer>
+<script>
+const cards = [...document.querySelectorAll('.card')];
+
+function setPos(comp, pct){
+  const p = Math.max(0, Math.min(100, pct));
+  comp.style.setProperty('--pos', p + '%');
+  comp.dataset.pos = p;
+}
+
+function pointerToPct(comp, ev){
+  const r = comp.getBoundingClientRect();
+  return ((ev.clientX - r.left) / r.width) * 100;
+}
+
+cards.forEach(card=>{
+  const comp = card.querySelector('.compare');
+  setPos(comp,50);
+
+  const move = ev=>{
+    if(comp.dataset.dragging!=='1') return;
+    setPos(comp,pointerToPct(comp,ev));
+  };
+
+  comp.addEventListener('pointerdown',ev=>{
+    comp.dataset.dragging='1';
+    comp.setPointerCapture(ev.pointerId);
+    setPos(comp,pointerToPct(comp,ev));
+  });
+  comp.addEventListener('pointermove',move);
+  comp.addEventListener('pointerup',ev=>{
+    comp.dataset.dragging='0';
+    try{comp.releasePointerCapture(ev.pointerId)}catch(e){}
+  });
+  comp.addEventListener('pointercancel',()=>comp.dataset.dragging='0');
+
+  comp.addEventListener('keydown',ev=>{
+    const cur = Number(comp.dataset.pos || 50);
+    if(ev.key==='ArrowLeft'){ev.preventDefault();setPos(comp,cur-5);}
+    if(ev.key==='ArrowRight'){ev.preventDefault();setPos(comp,cur+5);}
+    if(ev.key==='Home'){ev.preventDefault();setPos(comp,0);}
+    if(ev.key==='End'){ev.preventDefault();setPos(comp,100);}
+    if(ev.key==='Enter' || ev.key===' '){
+      ev.preventDefault();
+      setPos(comp,cur < 50 ? 100 : 0);
+    }
+  });
+
+  card.querySelector('.toggle').addEventListener('click',()=>{
+    const cur = Number(comp.dataset.pos || 50);
+    setPos(comp,cur < 50 ? 100 : 0);
+  });
+});
+
+document.querySelectorAll('[data-global]').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    const pct = Number(btn.dataset.global);
+    cards.forEach(c=>setPos(c.querySelector('.compare'),pct));
+  });
+});
+
+const chips=[...document.querySelectorAll('.chip')];
+chips.forEach(chip=>chip.addEventListener('click',()=>{
+  chips.forEach(c=>c.classList.remove('active'));
+  chip.classList.add('active');
+  const filter=chip.dataset.filter;
+  cards.forEach(card=>{
+    card.classList.toggle('hidden', filter!=='All' && card.dataset.category!==filter);
+  });
+}));
+</script>
+</body>
+</html>
